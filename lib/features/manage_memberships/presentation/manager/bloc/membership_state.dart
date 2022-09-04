@@ -8,7 +8,9 @@ abstract class MembershipState extends Equatable {
 }
 
 class MembershipInitial extends MembershipState {}
+
 class AddDeleteUpdateMembership extends MembershipState {}
+
 class LoadingAddDeleteUpdateMembershipState extends MembershipState {}
 
 class ErrorAddDeleteUpdateMembershipState extends MembershipState {

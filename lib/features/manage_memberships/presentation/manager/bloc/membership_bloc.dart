@@ -23,20 +23,14 @@ class MembershipBloc extends Bloc<MembershipEvent, MembershipState> {
       if (event is GetMembershipsEvent) {
         emit(LoadingMembershipsState());
 
-
         final failureOrMemberships = await getMembershipsUsecase();
         emit(_mapFailureOrMembershipsToState(failureOrMemberships));
-
-
-
       } else if (event is RefreshMembershipsEvent) {
         emit(LoadingMembershipsState());
 
         final failureOrMemberships = await getMembershipsUsecase();
         emit(_mapFailureOrMembershipsToState(failureOrMemberships));
-
-      }
-       else if (event is AddMembershipEvent) {
+      } else if (event is AddMembershipEvent) {
         emit(LoadingAddDeleteUpdateMembershipState());
 
         final failureOrDoneMessage =

@@ -1,14 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:gymna/features/manage_memberships/data/local/models/membership_model.dart';
-import 'package:gymna/features/manage_memberships/data/local/tables/memberships_table.dart';
 import 'package:hive/hive.dart';
 
 abstract class MembershipLocalDataSource {
   Future<List<MembershipModel>> getCachedMembership();
   Future<Unit> cacheMembership(MembershipModel membershipModel);
 }
-
-const cachedMembership = "CACHED_Membership";
 
 class MembershipLocalDataSourceImpl extends MembershipLocalDataSource {
   @override

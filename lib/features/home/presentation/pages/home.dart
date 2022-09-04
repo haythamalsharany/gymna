@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:gymna/features/employee/domain/entities/employee.dart';
+import 'package:gymna/features/employee/presentation/manager/bloc/employee_bloc.dart';
+import 'package:gymna/features/employee/presentation/pages/employees_page.dart';
 import 'package:gymna/features/manage_memberships/presentation/pages/memberships.dart';
 
-import '../../../manage_memberships/presentation/pages/add_membership.dart';
 import '../../../reports/presentation/pages/main_report.dart';
 
 class Home extends StatefulWidget {
@@ -36,7 +39,19 @@ class _MyHomeState extends State<Home> {
             Icons.add,
           ),
           onPressed: () async {
-            Get.to(const Addmembership());
+            Employee employee = const Employee(
+              dateOfGiveJob: '2-2-2022',
+              employeeAddress: 'sana\'a',
+              employeeAge: '25',
+              employeeId: 3,
+              employeeMaritalStatus: 'single',
+              employeeMobile: '77777777',
+              employeeName: 'haytham',
+              employeeType: 'poss',
+            );
+            BlocProvider.of<EmployeeBloc>(context)
+                .add(AddEmployeeEvent(employee));
+            Get.to(const EmployeesPage());
           },
         ),
       ),

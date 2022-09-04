@@ -1,7 +1,7 @@
+import 'package:dartz/dartz.dart';
+import 'package:gymna/core/error/failures.dart';
 import 'package:gymna/features/manage_memberships/data/local/tables/memberships_table.dart';
 import 'package:gymna/features/manage_memberships/domain/entities/membership_entity.dart';
-import 'package:gymna/core/error/failures.dart';
-import 'package:dartz/dartz.dart';
 import 'package:gymna/features/manage_memberships/domain/repositories/membership_repositry.dart';
 
 import '../local/data_sources/membership_local_data_source.dart';
@@ -16,9 +16,8 @@ class MembershipsRepositoryImpl extends MembershipRepositry {
   Future<Either<Failure, Unit>> addMembership(Membership membership) async {
     try {
       final table = MembershipsTable.fromMembership(membership);
-      print(table);
-      final response = await localDataSource
-          .cacheMembership(MembershipsTable.fromMembership(membership));
+
+      final response = await localDataSource.cacheMembership(table);
       return const Right(unit);
     } on Exception {
       return Left(CacheFailure());
