@@ -26,33 +26,30 @@ class _EmployeesPageState extends State<EmployeesPage> {
         appBar: AppBar(
           title: const Text('my Stuff'),
         ),
-        body: RefreshIndicator(
-          onRefresh: () => _onRefresh(context),
-          child: BlocBuilder<EmployeeBloc, EmployeeState>(
-            builder: (context, state) {
-              if (state is LoadedEmployeesState) {
-                return RefreshIndicator(
-                  onRefresh: () => _onRefresh(context),
-                  child: ListView.builder(
-                    itemCount: state.employees.length,
-                    itemBuilder: ((context, index) => EmployeeItemList(
-                          employee: state.employees[index],
+        body: BlocBuilder<EmployeeBloc, EmployeeState>(
+          builder: (context, state) {
+            if (state is LoadedEmployeesState) {
+              return RefreshIndicator(
+                onRefresh: () => _onRefresh(context),
+                child: ListView.builder(
+                  itemCount: state.employees.length,
+                  itemBuilder: ((context, index) => EmployeeItemList(
+                        employee: state.employees[index],
 
-                        )),
-                  ),
-                );
-              }
-              if (state is LoadedEmployeesState) {
-                return const LoadingWidget();
-              } else if (state is ErroremployeessState) {
-                return MessageDisplayWidget(message: state.message);
-              } else {
-                return const Center(
-                  child: Text('unknown error'),
-                );
-              }
-            },
-          ),
+                      )),
+                ),
+              );
+            }
+            if (state is LoadedEmployeesState) {
+              return const LoadingWidget();
+            } else if (state is ErroremployeessState) {
+              return MessageDisplayWidget(message: state.message);
+            } else {
+              return const Center(
+                child: Text('unknown error'),
+              );
+            }
+          },
         ));
   }
 

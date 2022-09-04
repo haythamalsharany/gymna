@@ -17,6 +17,7 @@ class EmployeeTebleAdapter extends TypeAdapter<EmployeeTeble> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return EmployeeTeble(
+      dateOfGiveJob: fields[7] as String,
       employeeId: fields[0] as int,
       employeeAge: fields[1] as String,
       employeeName: fields[2] as String,
@@ -24,14 +25,13 @@ class EmployeeTebleAdapter extends TypeAdapter<EmployeeTeble> {
       employeeMobile: fields[4] as String,
       employeeAddress: fields[5] as String,
       employeeMaritalStatus: fields[6] as String,
-      dateOfGiveJob: fields[7] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, EmployeeTeble obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.employeeId)
       ..writeByte(1)
@@ -45,7 +45,9 @@ class EmployeeTebleAdapter extends TypeAdapter<EmployeeTeble> {
       ..writeByte(5)
       ..write(obj.employeeAddress)
       ..writeByte(6)
-      ..write(obj.employeeMaritalStatus);
+      ..write(obj.employeeMaritalStatus)
+      ..writeByte(7)
+      ..write(obj.dateOfGiveJob);
   }
 
   @override

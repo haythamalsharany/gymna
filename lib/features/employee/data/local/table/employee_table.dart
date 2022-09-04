@@ -27,6 +27,8 @@ class EmployeeTeble extends EmployeeModel {
   @override
   @HiveField(6)
   final String employeeMaritalStatus;
+  @override
+  @HiveField(7)
   final String dateOfGiveJob;
 
   EmployeeTeble({

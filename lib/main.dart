@@ -7,6 +7,7 @@ import 'package:gymna/features/manage_memberships/presentation/manager/bloc/memb
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/app_theme.dart';
+import 'features/employee/data/local/table/employee_table.dart';
 import 'features/manage_memberships/data/local/tables/memberships_table.dart';
 import 'injection_container.dart' as di;
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -17,6 +18,7 @@ Future<void> main() async {
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(MembershipsTableAdapter());
+  Hive.registerAdapter(EmployeeTebleAdapter());
   runApp(const MyApp());
 }
 
