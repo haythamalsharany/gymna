@@ -1,12 +1,9 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gymna/features/employee/presentation/manager/bloc/employee_bloc.dart';
 
 import '../../../../core/widgets/loading_widget.dart';
 import '../../../manage_memberships/presentation/widgets/message_display_widget.dart';
+import '../manager/getEmployees/get_all_employees_bloc.dart';
 import '../widgets/employee_list_item.dart';
 
 class EmployeesPage extends StatefulWidget {
@@ -26,7 +23,7 @@ class _EmployeesPageState extends State<EmployeesPage> {
         appBar: AppBar(
           title: const Text('my Stuff'),
         ),
-        body: BlocBuilder<EmployeeBloc, EmployeeState>(
+        body: BlocBuilder<GetAllEmployeesBloc, GetAllEmployeesState>(
           builder: (context, state) {
             if (state is LoadedEmployeesState) {
               return RefreshIndicator(
@@ -35,7 +32,6 @@ class _EmployeesPageState extends State<EmployeesPage> {
                   itemCount: state.employees.length,
                   itemBuilder: ((context, index) => EmployeeItemList(
                         employee: state.employees[index],
-
                       )),
                 ),
               );
@@ -54,6 +50,6 @@ class _EmployeesPageState extends State<EmployeesPage> {
   }
 
   Future<void> _onRefresh(BuildContext context) async {
-    BlocProvider.of<EmployeeBloc>(context).add(RefreshEmployeesEvent());
+    BlocProvider.of<GetAllEmployeesBloc>(context).add(RefreshEmployeesEvent());
   }
 }

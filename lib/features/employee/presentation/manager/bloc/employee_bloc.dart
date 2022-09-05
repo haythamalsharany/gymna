@@ -17,25 +17,16 @@ part 'employee_state.dart';
 class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
 
   final AddEmployeeUsecase addEmployeeUseCase;
-  final GetAllEmployeesUseCase getAllEmployeesUseCase;
+  
   final UpdateEmployeeUseCase updateEmployeeUseCase;
 
   EmployeeBloc(
       {required this.addEmployeeUseCase,
-        required this.getAllEmployeesUseCase,
+        
        required this.updateEmployeeUseCase,})
       : super(EmployeeInitial()) {
     on<EmployeeEvent>((event, emit) async {
-      if (event is GetAllEmployeesEvent){
-        emit(LoadingEmployeesState());
-        final failureOrEmployees = await getAllEmployeesUseCase();
-        emit(_mapFailureOrEmployeesToState(failureOrEmployees));
-
-      }else if(event is RefreshEmployeesEvent){
-        emit(LoadingEmployeesState());
-        final failureOrEmployees = await getAllEmployeesUseCase();
-        emit(_mapFailureOrEmployeesToState(failureOrEmployees));
-      }else if(event is AddEmployeeEvent){
+       if(event is AddEmployeeEvent){
         emit(LoadingAddUpdateEmployeeState());
         final failureOrDoneMessage =
         await addEmployeeUseCase(event.employee);
@@ -54,16 +45,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
     });
   }
 
-  EmployeeState _mapFailureOrEmployeesToState(
-      Either<Failure, List<Employee>> either) {
-    return either.fold(
-          (failure) =>
-          ErroremployeessState(message: _mapFailureToMessage(failure)),
-          (employees) => LoadedEmployeesState(employees: employees)
-
-
-    );
-  }
+ 
 
   EmployeeState _eitherDoneMessageOrErrorState(
       Either<Failure, Unit> either, String message) {

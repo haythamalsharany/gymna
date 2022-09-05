@@ -8,6 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/app_theme.dart';
 import 'features/employee/data/local/table/employee_table.dart';
+import 'features/employee/presentation/manager/getEmployees/get_all_employees_bloc.dart';
 import 'features/manage_memberships/data/local/tables/memberships_table.dart';
 import 'injection_container.dart' as di;
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -29,10 +30,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        
         BlocProvider(
             create: (_) => di.sl<MembershipBloc>()..add(GetMembershipsEvent())),
         BlocProvider(
-            create: (_) => di.sl<EmployeeBloc>()..add(GetAllEmployeesEvent()))
+            create: (_) => di.sl<EmployeeBloc>()),
+            BlocProvider(
+            create: (_) => di.sl<GetAllEmployeesBloc>()..add( GetEmployeesEvent()))
       ],
       child: GetMaterialApp(
         title: 'Flutter Demo',

@@ -25,14 +25,10 @@ class UpdateEmployeeEvent extends EmployeeEvent {
   List<Object> get props => [employee];
 }
 
-class GetAllEmployeesEvent extends EmployeeEvent {
-  GetAllEmployeesEvent();
-}
+
 
 class GetEmployeeEvent extends EmployeeEvent {
   final int employeeId;
 
   GetEmployeeEvent({required this.employeeId});
 }
-
-class RefreshEmployeesEvent extends EmployeeEvent {}

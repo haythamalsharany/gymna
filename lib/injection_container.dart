@@ -7,6 +7,7 @@ import 'package:gymna/features/employee/domain/use_cases/add_employee_use_case.d
 import 'package:gymna/features/employee/domain/use_cases/get_all_employee_use_case.dart';
 import 'package:gymna/features/employee/domain/use_cases/update_employee_use_case.dart';
 import 'package:gymna/features/employee/presentation/manager/bloc/employee_bloc.dart';
+import 'package:gymna/features/employee/presentation/manager/getEmployees/get_all_employees_bloc.dart';
 import 'package:gymna/features/manage_memberships/data/local/data_sources/membership_local_data_source.dart';
 import 'package:gymna/features/manage_memberships/data/repositories/membership_repositry_impl.dart';
 import 'package:gymna/features/manage_memberships/domain/repositories/membership_repositry.dart';
@@ -23,10 +24,13 @@ Future<void> init() async {
   //! Features - membership
   sl.registerFactory(() =>
       MembershipBloc(addMembershipUsecase: sl(), getMembershipsUsecase: sl()));
-  sl.registerFactory(() => EmployeeBloc(
-      addEmployeeUseCase: sl(),
-      getAllEmployeesUseCase: sl(),
-      updateEmployeeUseCase: sl()));
+  //! Features - employee
+  sl.registerFactory(() =>
+      EmployeeBloc(addEmployeeUseCase: sl(), updateEmployeeUseCase: sl()));
+
+  sl.registerFactory(() => GetAllEmployeesBloc(
+        getAllEmployeesUseCase: sl(),
+      ));
 
   // Use cases
   sl.registerLazySingleton(() => GetMembershipsUsecase(sl()));
