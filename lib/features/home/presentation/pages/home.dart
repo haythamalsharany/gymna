@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:gymna/features/employee/domain/entities/employee.dart';
-import 'package:gymna/features/employee/presentation/manager/bloc/employee_bloc.dart';
 import 'package:gymna/features/employee/presentation/pages/employees_page.dart';
 import 'package:gymna/features/manage_memberships/presentation/pages/memberships.dart';
 
+import '../../../employee/presentation/manager/add_update_employee/employee_bloc.dart';
 import '../../../reports/presentation/pages/main_report.dart';
 
 class Home extends StatefulWidget {
