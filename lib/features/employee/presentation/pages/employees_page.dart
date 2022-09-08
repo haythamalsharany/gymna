@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/loading_widget.dart';
 import '../../../manage_memberships/presentation/widgets/message_display_widget.dart';
+import '../../domain/entities/employee.dart';
+import '../manager/add_update_employee/employee_bloc.dart';
 import '../manager/getEmployees/get_all_employees_bloc.dart';
 import '../widgets/employee_list_item.dart';
 
@@ -28,12 +30,35 @@ class _EmployeesPageState extends State<EmployeesPage> {
             if (state is LoadedEmployeesState) {
               return RefreshIndicator(
                 onRefresh: () => _onRefresh(context),
-                child: ListView.builder(
-                  itemCount: state.employees.length,
-                  itemBuilder: ((context, index) => EmployeeItemList(
-                        employee: state.employees[index],
-                      )),
-                ),
+                child: state.employees.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: state.employees.length,
+                        itemBuilder: ((context, index) => EmployeeItemList(
+                              employee: state.employees[index],
+                            )),
+                      )
+                    : Center(
+                        child: Column(
+                          children: [
+                            const Text('there is no employee found '),
+                            TextButton(
+                                onPressed: () {
+                                  Employee employee = const Employee(
+                                      dateOfGiveJob: '2-2-2022',
+                                      employeeAddress: 'sana \'a',
+                                      employeeAge: '22',
+                                      employeeId: 27,
+                                      employeeMaritalStatus: 'single',
+                                      employeeMobile: '715512377',
+                                      employeeName: 'omer',
+                                      employeeType: 'poss');
+                                  BlocProvider.of<EmployeeBloc>(context)
+                                      .add(AddEmployeeEvent(employee));
+                                },
+                                child: const Text('press to add new one'))
+                          ],
+                        ),
+                      ),
               );
             }
             if (state is LoadedEmployeesState) {

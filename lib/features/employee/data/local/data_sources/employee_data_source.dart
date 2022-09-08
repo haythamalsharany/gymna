@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 
 abstract class EmployeeLocalDataSource {
   Future<List<EmployeeModel>> getAllLocalEmployees();
+  Future<List<EmployeeModel>> searchLocalEmployees(String searchText);
 
   Future<Unit> addEmployee(EmployeeModel employeeModel);
 
@@ -52,4 +53,25 @@ class EmployeeLocalDataSourceImpl extends EmployeeLocalDataSource {
 
     return unit;
   }
+  
+  @override
+  Future<List<EmployeeModel>> searchLocalEmployees(String searchText) async {
+  
+  
+    final employeesBox = await Hive.openBox('employeesBox');
+
+    final employeeIds = employeesBox.keys;
+    List<EmployeeModel> employees = [];
+    for (var employeeId in employeeIds) {
+    EmployeeModel  employee = employeesBox.get(employeeId);
+      
+      if (employee != null && employee.employeeName.contains(searchText)) {
+        employees.add(employee);
+      }
+
+    }
+    
+    return employees;
+  }
+  
 }

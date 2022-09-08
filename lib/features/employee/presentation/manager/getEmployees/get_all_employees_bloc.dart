@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gymna/features/employee/domain/use_cases/search_use_case.dart';
 
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/strings/failures.dart';
@@ -13,10 +14,13 @@ part 'get_all_employees_state.dart';
 class GetAllEmployeesBloc
     extends Bloc<GetAllEmployeesEvent, GetAllEmployeesState> {
   final GetAllEmployeesUseCase getAllEmployeesUseCase;
-  GetAllEmployeesBloc({required this.getAllEmployeesUseCase})
+  
+  GetAllEmployeesBloc(
+      {
+      required this.getAllEmployeesUseCase})
       : super(GetAllEmployeesInitial()) {
     on<GetAllEmployeesEvent>((event, emit) async {
-      if (event is GetAllEmployeesEvent) {
+      if (event is GetEmployeesEvent) {
         emit(LoadingEmployeesState());
         final failureOrEmployees = await getAllEmployeesUseCase();
         emit(_mapFailureOrEmployeesToState(failureOrEmployees));

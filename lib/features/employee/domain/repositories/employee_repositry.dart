@@ -11,4 +11,5 @@ abstract class EmployeeRepositry {
   Future<Either<Failure, Unit>> updateMembership(Employee employee);
 
   Future<Either<Failure, Employee>> getEmployee(int employeeId);
+  Future<Either<Failure, List<Employee>>> SearchEmployees(String  searchText);
 }

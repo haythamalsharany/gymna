@@ -5,7 +5,9 @@ import 'package:gymna/features/employee/data/repositories/employee_repositry_imp
 import 'package:gymna/features/employee/domain/repositories/employee_repositry.dart';
 import 'package:gymna/features/employee/domain/use_cases/add_employee_use_case.dart';
 import 'package:gymna/features/employee/domain/use_cases/get_all_employee_use_case.dart';
+import 'package:gymna/features/employee/domain/use_cases/search_use_case.dart';
 import 'package:gymna/features/employee/domain/use_cases/update_employee_use_case.dart';
+import 'package:gymna/features/employee/presentation/manager/cubit/search_cubit.dart';
 import 'package:gymna/features/employee/presentation/manager/getEmployees/get_all_employees_bloc.dart';
 import 'package:gymna/features/manage_memberships/data/local/data_sources/membership_local_data_source.dart';
 import 'package:gymna/features/manage_memberships/data/repositories/membership_repositry_impl.dart';
@@ -50,13 +52,13 @@ Future<void> init() async {
   sl.registerFactory(() =>
       EmployeeBloc(addEmployeeUseCase: sl(), updateEmployeeUseCase: sl()));
 
-  sl.registerFactory(() => GetAllEmployeesBloc(
-        getAllEmployeesUseCase: sl(),
-      ));
+  sl.registerFactory(() => GetAllEmployeesBloc(getAllEmployeesUseCase: sl()));
+  sl.registerFactory(() => SearchCubit(searchEmployeesUsecase: sl()));
   // Use cases
   sl.registerLazySingleton(() => AddEmployeeUsecase(sl()));
   sl.registerLazySingleton(() => UpdateEmployeeUseCase(sl()));
   sl.registerLazySingleton(() => GetAllEmployeesUseCase(sl()));
+  sl.registerLazySingleton(() => SearchEmployeesUsecase(repositry: sl()));
 
   // Repository
 
@@ -71,25 +73,29 @@ Future<void> init() async {
   //!------------------------------------ Features - Payroll------------------------
   //Bloc
   sl.registerFactory(() =>
-          AddUpdatePayrollBloc(addPaylorUsecase: sl(), updatePaylorUsecase: sl()));
+      AddUpdatePayrollBloc(addPaylorUsecase: sl(), updatePaylorUsecase: sl()));
 
   sl.registerFactory(() => GetPayrollsBloc(
-    getAllPayrollsUsecase: sl(),
-    getPayrollUsecase: sl(),
-  ));
+        getAllPayrollsUsecase: sl(),
+        getPayrollUsecase: sl(),
+      ));
   // Use cases
-  sl.registerLazySingleton(() => AddPaylorUsecase( repositry: sl(),));
-  sl.registerLazySingleton(() => UpdatePaylorUsecase(repositry: sl(),));
+  sl.registerLazySingleton(() => AddPaylorUsecase(
+        repositry: sl(),
+      ));
+  sl.registerLazySingleton(() => UpdatePaylorUsecase(
+        repositry: sl(),
+      ));
   sl.registerLazySingleton(() => GetAllPayrollsUsecase(repositry: sl()));
   sl.registerLazySingleton(() => GetPayrollUsecase(repositry: sl()));
 
   // Repository
 
   sl.registerLazySingleton<PayrollRepositry>(
-          () => PayrollRepositryImpl(localDataSource: sl()));
+      () => PayrollRepositryImpl(localDataSource: sl()));
   // Local Data sources
   sl.registerLazySingleton<PayrollLocalDataSource>(
-          () => PayrollHiveDataSource());
+      () => PayrollHiveDataSource());
 
 // Remote Data sources
 

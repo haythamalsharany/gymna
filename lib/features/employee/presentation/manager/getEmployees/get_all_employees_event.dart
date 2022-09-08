@@ -8,6 +8,12 @@ abstract class GetAllEmployeesEvent extends Equatable {
 }
 
 class RefreshEmployeesEvent extends GetAllEmployeesEvent {}
+
 class GetEmployeesEvent extends GetAllEmployeesEvent {
-  GetEmployeesEvent();
+  const GetEmployeesEvent();
+}
+
+class SearchEmployeesEvent extends GetAllEmployeesEvent {
+  final String searchText;
+  const SearchEmployeesEvent({required this.searchText});
 }

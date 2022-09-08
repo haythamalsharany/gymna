@@ -23,6 +23,7 @@ dependencies:
   hive_flutter: 
   path_provider:
   internet_connection_checker:
+  dropdown_text_search:
 
 dev_dependencies:
   flutter_lints: ^2.0.0

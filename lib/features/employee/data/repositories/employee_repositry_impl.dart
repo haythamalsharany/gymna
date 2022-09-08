@@ -51,4 +51,14 @@ class EmployeeRepositoryImpl extends EmployeeRepositry {
       return Left(CacheFailure());
     }
   }
+  
+  @override
+  Future<Either<Failure, List<Employee>>> SearchEmployees(String searchText) async {
+    try {
+      final response = await localDataSource.searchLocalEmployees(searchText);
+      return Right(response);
+    } on Exception {
+      return Left(CacheFailure());
+    }
+  }
 }
